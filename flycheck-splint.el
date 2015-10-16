@@ -31,7 +31,7 @@
 (require 'flycheck)
 
 (defcustom flycheck-splint-arguments
-  '("+posixlib" "-showfunc" "-hints" "+quiet")
+  '("-showfunc" "-hints" "+quiet")
   "Argument to pass to splint.")
 
 (defvar flycheck-splint--irony-relative-include-regex
