@@ -47,15 +47,25 @@ See `http://www.splint.org/'."
             ;; try get compile options from irony if it is enabled
             (eval (when irony-mode
                     (mapcar #'(lambda (s) (if (string-match-p flycheck-splint--irony-relative-include-regex s)
-                                         (concat "-I" irony--working-directory "."
-                                                 (replace-regexp-in-string flycheck-splint--irony-relative-include-regex "" s))
+                                         (replace-regexp-in-string
+                                          flycheck-splint--irony-relative-include-regex
+                                          (concat "-I" irony--working-directory ".")
+                                          s)
                                        s))
                             irony--compile-options)))
             source)
-  :error-patterns ((warning line-start (file-name) ":" line ":" column ":" (message (minimal-match (one-or-more anything))) line-end)
-                   (warning line-start (file-name) "(" line "," column "):" (message (minimal-match (one-or-more anything))) line-end)
-                   (warning line-start (file-name) ":" line ":" (message (minimal-match (one-or-more anything))) line-end)
-                   (warning line-start (file-name) "(" line "):" (message (minimal-match (one-or-more anything))) line-end))
+  :error-patterns ((warning line-start (file-name) ":" line ":" column ":"
+                            (message (minimal-match (one-or-more anything)))
+                            line-end)
+                   (warning line-start (file-name) "(" line "," column "):"
+                            (message (minimal-match (one-or-more anything)))
+                            line-end)
+                   (warning line-start (file-name) ":" line ":"
+                            (message (minimal-match (one-or-more anything)))
+                            line-end)
+                   (warning line-start (file-name) "(" line "):"
+                            (message (minimal-match (one-or-more anything)))
+                            line-end))
   :modes c-mode)
 
 (provide 'flycheck-split)
